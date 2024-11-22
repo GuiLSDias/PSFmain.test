@@ -1,56 +1,29 @@
-
-
 // Função para carregar e exibir dados da planilha do Google Sheets com linhas expansíveis
 function loadGoogleSheetData() {
-    const tableBody = document.querySelector('#actions-table tbody');
-    tableBody.innerHTML = '<tr><td>Carregando dados...</td></tr>';
+    const gridItems = document.querySelectorAll('.grid-item .overlay');  // Seleciona todos os overlays
+    const gridItemCount = gridItems.length;
 
     gapi.client.sheets.spreadsheets.values.get({
         spreadsheetId: '1oCVxap3DrKcLxS5LA-iyYP0GLAK2kMdm9TUUqdJrOV8',
         range: 'acoes'
     }).then(function(response) {
         const data = response.result.values;
-        tableBody.innerHTML = ''; // Limpa a mensagem de carregamento
 
-        data.forEach(function(row, index) {
-            const actionName = row[0] || 'Nome da Ação';  // Nome da ação
-            const actionDescription = row[1]|| 'Descrição da ação não disponível';  // Descrição
-           
+        // Verifica se há dados suficientes para preencher todos os overlays
+        for (let i = 0; i < gridItemCount; i++) {
+            const actionName = data[i] ? data[i][0] : 'Nome da Ação';  // Nome da ação
+            const actionDescription = data[i] ? data[i][1] : 'Descrição da ação não disponível';  // Descrição
 
-            // Cria a linha principal da tabela com o nome da ação
-            const tableRow = document.createElement('tr');
-            tableRow.classList.add('clickable-row');
-            tableRow.addEventListener("click", function () {
-                toggleExpand(index);
-            });
-
-            const cell = document.createElement('td');
-            cell.textContent = actionName;
-            tableRow.appendChild(cell);
-
-            // Linha expansível para exibir a descrição ao clicar
-            const expandableRow = document.createElement('tr');
-            expandableRow.classList.add('expandable-row');
-            expandableRow.id = `expandable-row-${index}`;
-
-            const expandableCell = document.createElement('td');
-            expandableCell.colSpan = 1;
-            expandableCell.textContent = actionDescription;
-            expandableRow.appendChild(expandableCell);
-
-            tableBody.appendChild(tableRow);
-            tableBody.appendChild(expandableRow);
-        });
+            const overlay = gridItems[i];
+            overlay.innerHTML = `<span>${actionName}: ${actionDescription}</span>`;
+        }
     }).catch(function(error) {
         console.error("Erro ao carregar os dados:", error);
-        tableBody.innerHTML = '<tr><td>Erro ao carregar dados. Tente novamente mais tarde.</td></tr>';
+        const gridItems = document.querySelectorAll('.grid-item .overlay');
+        gridItems.forEach(overlay => {
+            overlay.innerHTML = `<span>Erro ao carregar dados. Tente novamente mais tarde.</span>`;
+        });
     });
-}
-
-// Função para alternar a visibilidade da linha expansível
-function toggleExpand(index) {
-    const expandableRow = document.getElementById(`expandable-row-${index}`);
-    expandableRow.classList.toggle("show");
 }
 
 // Função para inicializar a API do Google Sheets
@@ -85,5 +58,6 @@ function mudarImagem(direcao) {
   const imagensContainer = document.querySelector('.imagens');
   imagensContainer.style.transform = `translateX(-${indice * 100}%)`;
 }
+
 // Carrega a API do Google Sheets e inicia a aplicação
 gapi.load('client', initGoogleSheetsApi);
