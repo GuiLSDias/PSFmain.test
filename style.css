@@ -72,3 +72,58 @@ header p {
     font-size: 1.5em;
     font-weight: bold;
 }
+ /* Estilo para a seção de impacto */
+ section.text-center {
+    background-color: #ffffff; /* Fundo branco para destacar o conteúdo */
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Sombra suave para dar destaque */
+    margin-top: 40px;
+}
+
+section.text-center h2 {
+    font-size: 2.5rem; /* Tamanho maior para o título */
+    color: #0056b3; /* Azul escuro para o título */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+section.text-center p {
+    font-size: 1.1rem; /* Tamanho de texto adequado para leitura */
+    line-height: 1.8;
+    color: #555555; /* Cor mais suave para o texto */
+    text-align: justify; /* Justificar o texto para uma leitura mais fluída */
+    max-width: 900px;
+    margin: 0 auto; /* Centraliza o parágrafo */
+}
+
+section.text-center ul {
+    list-style-type: none; /* Remove os pontos da lista */
+    padding: 0;
+    margin-top: 20px;
+}
+
+section.text-center ul li {
+    font-size: 1.1rem;
+    color: #333333;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+}
+
+section.text-center ul li::before {
+    content: "✔"; /* Marca de verificação para cada item */
+    color: #28a745; /* Verde para as marcas de verificação */
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.3rem;
+}
+
+section.text-center p span {
+    display: block;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333333;
+}
