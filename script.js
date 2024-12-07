@@ -1,6 +1,6 @@
 // Função para carregar e exibir dados da planilha do Google Sheets com linhas expansíveis
 function loadGoogleSheetData() {
-    const gridItems = document.querySelectorAll('.grid-item .overlay');  // Seleciona todos os overlays
+    const gridItems = document.querySelectorAll('.grid-item .overlay'); // Seleciona todos os overlays
     const gridItemCount = gridItems.length;
 
     gapi.client.sheets.spreadsheets.values.get({
@@ -11,11 +11,14 @@ function loadGoogleSheetData() {
 
         // Verifica se há dados suficientes para preencher todos os overlays
         for (let i = 0; i < gridItemCount; i++) {
-            const actionName = data[i] ? data[i][0] : 'Nome da Ação';  // Nome da ação
-            const actionDescription = data[i] ? data[i][1] : 'Descrição da ação não disponível';  // Descrição
+            const actionName = data[i] ? data[i][0] : 'Nome da Ação'; // Nome da ação
+            const actionDescription = data[i] ? data[i][1] : 'Descrição da ação não disponível'; // Descrição
+
+            // Substitui cada "." por um "." seguido de uma quebra de linha
+            const formattedDescription = actionDescription.replace(/\./g, '.<br><wbr>');
 
             const overlay = gridItems[i];
-            overlay.innerHTML = `<span>${actionName}: ${actionDescription}</span>`;
+            overlay.innerHTML = `<span>${actionName} ${formattedDescription}</span>`;
         }
     }).catch(function(error) {
         console.error("Erro ao carregar os dados:", error);
