@@ -1,6 +1,12 @@
-// Função para carregar e exibir dados da planilha do Google Sheets com linhas expansíveis
+function formatDescription(description) {
+    if (typeof description !== 'string') {
+        return 'Descrição inválida';
+    }
+    return description.replace(/\./g, '.<br><wbr>');
+}
+
 function loadGoogleSheetData() {
-    const gridItems = document.querySelectorAll('.grid-item .overlay'); // Seleciona todos os overlays
+    const gridItems = document.querySelectorAll('.grid-item');
     const gridItemCount = gridItems.length;
 
     gapi.client.sheets.spreadsheets.values.get({
@@ -9,27 +15,30 @@ function loadGoogleSheetData() {
     }).then(function(response) {
         const data = response.result.values;
 
-        // Verifica se há dados suficientes para preencher todos os overlays
         for (let i = 0; i < gridItemCount; i++) {
-            const actionName = data[i] ? data[i][0] : 'Nome da Ação'; // Nome da ação
-            const actionDescription = data[i] ? data[i][1] : 'Descrição da ação não disponível'; // Descrição
+            const gridItem = gridItems[i];
+            const contentDiv = gridItem.querySelector('.content');
 
-            // Substitui cada "." por um "." seguido de uma quebra de linha
-            const formattedDescription = actionDescription.replace(/\./g, '.<br><wbr>');
+            if (!data || !data[i] || !data[i][0] || !data[i][1]) {
+                contentDiv.innerHTML = "<p>Ação não encontrada.</p>";
+                continue;
+            }
 
-            const overlay = gridItems[i];
-            overlay.innerHTML = `<span>${actionName} ${formattedDescription}</span>`;
+            const actionName = data[i][0];
+            const actionDescription = data[i][1];
+            const formattedDescription = formatDescription(actionDescription);
+
+            contentDiv.innerHTML = `<h3>${actionName}</h3><p>${formattedDescription}</p>`;
         }
     }).catch(function(error) {
         console.error("Erro ao carregar os dados:", error);
-        const gridItems = document.querySelectorAll('.grid-item .overlay');
-        gridItems.forEach(overlay => {
-            overlay.innerHTML = `<span>Erro ao carregar dados. Tente novamente mais tarde.</span>`;
+        gridItems.forEach(gridItem => {
+            const contentDiv = gridItem.querySelector('.content');
+            contentDiv.innerHTML = "<p>Erro ao carregar dados. Tente novamente mais tarde.</p>";
         });
     });
 }
 
-// Função para inicializar a API do Google Sheets
 function initGoogleSheetsApi() {
     gapi.client.init({
         apiKey: 'AIzaSyCx8aiF0nXPMI3GLDljYxAxVYhPWkw63sM',
@@ -41,26 +50,4 @@ function initGoogleSheetsApi() {
     });
 }
 
-let indice = 0;
-
-function mudarImagem(direcao) {
-  const slides = document.querySelectorAll('.slide');
-  const totalSlides = slides.length;
-  
-  // Atualiza o índice com base na direção do clique
-  indice += direcao;
-  
-  // Verifica se o índice ultrapassou o limite
-  if (indice < 0) {
-    indice = totalSlides - 1;
-  } else if (indice >= totalSlides) {
-    indice = 0;
-  }
-  
-  // Atualiza a posição das imagens
-  const imagensContainer = document.querySelector('.imagens');
-  imagensContainer.style.transform = `translateX(-${indice * 100}%)`;
-}
-
-// Carrega a API do Google Sheets e inicia a aplicação
 gapi.load('client', initGoogleSheetsApi);

@@ -1,4 +1,5 @@
 /* Estilo global */
+
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
@@ -8,7 +9,7 @@ body {
 
 header {
     padding: 20px;
-    background-color: #fff;
+    background-color: #ffffff;
     border-bottom: 1px solid #ddd;
 }
 
@@ -30,55 +31,58 @@ header p {
     padding: 20px;
 }
 
+/*INICIO*/
 .grid-item {
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgb(255, 255, 255);
     cursor: pointer;
+    display: flex;
+    flex-direction: column; /* Organiza imagem e conteúdo em coluna */
 }
 
 .grid-item img {
-    width: 100%;
-    height: 100%;
+    width: 100%; /* Largura total do contêiner */
+    aspect-ratio: 1 / 1; /* Proporção 1:1 (quadrada) */
+    object-fit: cover; /* Para preencher o espaço e cortar se necessário */
     display: block;
-    transition: transform 0.3s ease;
+    border-bottom: 1px solid #ffffff; 
+    border-radius: 8px;
 }
 
-.grid-item:hover img {
-    transform: scale(1.1);
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.content {
     padding: 10px;
+    text-align: left;
+    background-color: #ffffff;
+    border-top: 1px solid #ffffff;
 }
 
-.grid-item:hover .overlay {
-    opacity: 1;
+.content h3 {
+    margin: 5px 0;
+    font-size: 1.2em;
+    color: #333;
 }
 
-.overlay span {
-    font-size: 1.5em;
-    font-weight: bold;
-    text-align: center;
-    line-height: 1.4;
-    max-width: 80%;
-    word-wrap: break-word;
+.content p {
+    margin: 0;
+    font-size: 1em;
+    color: #000000;
 }
 
-/* Estilo para a seção de impacto */
+.grid-item .content {
+    padding: 10px; /* Adicione algum espaçamento interno */
+    text-align: center; /* Alinhe o texto à esquerda */
+    background-color: #ffffff; /* Cor de fundo suave (opcional) */
+    border-top: 1px solid #ddd; /* Adicione uma borda superior (opcional) */
+    font-size: 1em; /* Ajuste o tamanho da fonte conforme necessário */
+    word-wrap: break-word; /* Permite quebras de palavra */
+}
+.grid-item h2{
+    font-size: 1.3em;
+}
+/*FINAL*/
+
 section.text-center {
     background-color: #ffffff; /* Fundo branco para destacar o conteúdo */
     padding: 40px 20px;
@@ -134,20 +138,6 @@ section.text-center p span {
     color: #333333;
 }
 
-/* Ajustes adicionais */
-.overlay span {
-    font-size: 1.2em;
-    font-weight: normal;
-    max-width: 90%;
-    padding: 10px;
-}
-
-.grid-item img {
-    object-fit: cover; /* Garante que a imagem preencha o contêiner sem distorcer */
-    border-radius: 8px;
-}
-
-/* Animação suave para a sobreposição */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -159,4 +149,20 @@ section.text-center p span {
 
 .grid-item:hover .overlay {
     animation: fadeIn 0.3s ease-in-out;
+}
+
+@media (max-width: 480px) {
+    .overlay span {
+        font-size: 1em;
+        padding: 5px;
+    }
+    section.text-center h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        gap: 20px;
+    }
 }
