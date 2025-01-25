@@ -1,4 +1,109 @@
 /* Estilo global */
+* { margin: 0; padding: 0; }
+.slider {
+    display: block;
+    height: 293px;
+    width: 600px;
+    margin: auto;
+    margin-top: 20px;
+    position: relative;
+}
+
+.slider li {
+    list-style: none;
+    position: absolute;
+}
+
+.slider img {
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    vertical-align: top;
+}
+/* Estilização da barra de navegação */
+.navbar {
+    background-color: #f8f9fa; /* Cor de fundo clara */
+    padding: 15px 0; /* Espaçamento vertical */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Centraliza os itens da navbar */
+.navbar-nav {
+    margin: 0 auto; /* Centraliza os itens horizontalmente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Espaçamento entre os botões */
+}
+
+/* Estilo dos links da navbar */
+.nav-link {
+    font-size: 18px; /* Tamanho maior para melhorar a legibilidade */
+    font-weight: bold; 
+    background-color: #adadad; /* Negrito para destaque */
+    color: #000000; 
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    transition: all 0.3s ease; /* Transição suave ao passar o mouse */
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Hover e estado ativo */
+.nav-link:hover, .nav-link.active {
+    background-color: #adadad; /* Fundo azul ao passar o mouse ou ativo */
+    color: #000000; /* Texto branco */
+    
+}
+
+/* Para botões colapsados (mobile) */
+.navbar-toggler {
+    border: none; /* Remove a borda padrão */
+    background-color: #adadad; /* Cor de fundo azul */
+    color: #000000; /* Ícone branco */
+    border-radius: 5px; /* Bordas arredondadas */
+    padding: 5px 10px;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%281,123,255,1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    filter: brightness(0) invert(1); /* Ajusta cor do ícone */
+}
+
+/* Centraliza a navbar na tela */
+.container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-img-top {
+    width: 100%; /* Largura total do contêiner */
+    aspect-ratio: 1 / 1; /* Proporção 1:1 (quadrada) */
+    object-fit: cover; /* Para preencher o espaço e cortar se necessário */
+    display: block;
+    border-bottom: 1px solid #ffffff; 
+    border-radius: 8px;
+}
+
+.carousel-inner .carousel-item img {
+    width: 100%; /* Mantém o carrossel responsivo */
+    max-height: 500px; /* Define uma altura máxima para um tamanho médio */
+    object-fit: cover; /* Ajusta a imagem para cobrir a área sem distorção */
+    border-radius: 10px; /* Adiciona bordas arredondadas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Aplica uma sombra suave para destacar as imagens */
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para legibilidade */
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+.carousel-caption h5, 
+.carousel-caption p {
+    color: #000000; /* Garante que o texto seja visível sobre o fundo */
+    margin: 0;
+}
 
 body {
     margin: 0;
@@ -26,12 +131,17 @@ header p {
 /* Grid container */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 15px;
     padding: 20px;
 }
 
-/*INICIO*/
+.grid-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
 .grid-item {
     position: relative;
     overflow: hidden;

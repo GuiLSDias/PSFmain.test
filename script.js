@@ -6,7 +6,7 @@ function formatDescription(description) {
 }
 
 function loadGoogleSheetData() {
-    const gridItems = document.querySelectorAll('.grid-item');
+    const gridItems = document.querySelectorAll('.card');
     const gridItemCount = gridItems.length;
 
     gapi.client.sheets.spreadsheets.values.get({
