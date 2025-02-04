@@ -87,7 +87,7 @@
 
 .carousel-inner .carousel-item img {
     width: 100%; /* Mantém o carrossel responsivo */
-    max-height: 500px; /* Define uma altura máxima para um tamanho médio */
+    max-height: 600px; /* Define uma altura máxima para um tamanho médio */
     object-fit: cover; /* Ajusta a imagem para cobrir a área sem distorção */
     border-radius: 10px; /* Adiciona bordas arredondadas */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Aplica uma sombra suave para destacar as imagens */
